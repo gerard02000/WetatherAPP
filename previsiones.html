@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/boxicons/2.0.7/css/boxicons.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+        integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc"
+        crossorigin="anonymous"></script>
+
+    <!-- Agregar hoja de estilo de Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="icons\favicon.svg" />
+    <title>Weather App</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="navigation">
+            <!-- Navigation menu -->
+            <ul class="menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="mapas.html">Mapas</a></li>
+                <li><a href="previsiones.html">Previsiones</a></li>
+                <li><a href="https://github.com/gerard02000">Mas proyectos</a></li>
+            </ul>
+        </div>
+
+        <!-- Controles de la aplicación (oscuro y paleta de colores) -->
+        <div class="dark-mode">
+            <span class="dark-mode-btn">
+                <i class="fas fa-moon"></i>
+            </span>
+        </div>
+    </header>
+
+    <!-- Contenedor para mostrar el mapa Leaflet -->
+    <div id="map"></div>
+
+
+
+    <!-- Vincular Leaflet y tu script para cargar el mapa -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="scriptPrevisiones.js"></script> <!-- Agrega el enlace a tu script que configura el mapa -->
+</body>
+
+</html>

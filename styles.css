@@ -1,0 +1,664 @@
+/* Import Google Font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Variables de colores */
+:root {
+  --primary-color: #495af7;
+  --secondary-color: #fff;
+  --text-color: #fff;
+  --input-color: #000;
+  --light-grey: #f5f5f5;
+  --pending-color: #b7e4ec;
+  --pending-text-color: #0c6047;
+  --error-color: #ffc1c5;
+  --error-text-color: #631920;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--primary-color);
+  color: var(--text-color);
+}
+
+::selection {
+  color: #fff;
+  background: var(--primary-color);
+}
+
+.wrapper {
+  width: 400px;
+  background: #fff;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.wrapper header {
+  display: flex;
+  font-size: 21px;
+  font-weight: 500;
+  color: var(--text-color);
+  padding: 16px 15px;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+}
+
+header i {
+  font-size: 0em;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.wrapper.active header i {
+  margin-left: 5px;
+  font-size: 30px;
+}
+
+.wrapper .input-part {
+  margin: 20px 25px 30px;
+}
+
+.wrapper.active .input-part {
+  display: none;
+}
+
+.input-part .info-txt {
+  display: none;
+  font-size: 17px;
+  text-align: center;
+  padding: 12px 10px;
+  border-radius: 7px;
+  margin-bottom: 15px;
+}
+
+.input-part .info-txt.error {
+  color: var(--error-text-color);
+  display: block;
+  background: var(--error-color);
+  border: 1px solid #f5c6cb;
+}
+
+.input-part .info-txt.pending {
+  color: var(--pending-text-color);
+  display: block;
+  background: var(--pending-color);
+  border: 1px solid #bee5eb;
+}
+
+.input-part :where(input, button) {
+  width: 100%;
+  height: 55px;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  border-radius: 7px;
+}
+
+.input-part input {
+  text-align: center;
+  padding: 0 15px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.input-part input:is(:focus, :valid) {
+  border: 2px solid var(--primary-color);
+}
+
+.input-part input::placeholder {
+  color: rgb(24, 24, 24) !important;
+}
+
+.input-part .separator {
+  height: 1px;
+  width: 100%;
+  margin: 25px 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.separator::before {
+  content: "or";
+  color: var(--light-grey);
+  font-size: 19px;
+  padding: 0 15px;
+  border-radius: 20px;
+}
+
+.input-part button {
+  color: var(--text-color);
+  cursor: pointer;
+  background: var(--primary-color);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  transition: 0.3s ease;
+}
+
+.input-part button:hover {
+  transform: scale(1.03);
+}
+
+.wrapper .weather-part {
+  display: none;
+  margin: 30px 0 0;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.wrapper.active .weather-part {
+  display: flex;
+}
+
+.weather-part img {
+  max-width: 125px;
+}
+
+.weather-part .temp {
+  display: flex;
+  font-weight: 500;
+  font-size: 72px;
+}
+
+.weather-part .temp .numb {
+  font-weight: 600;
+}
+
+.weather-part .temp .deg {
+  font-size: 40px;
+  display: block;
+  margin: 10px 5px 0 0;
+}
+
+.weather-part .weather {
+  font-size: 21px;
+  text-align: center;
+  margin: -5px 20px 15px;
+}
+
+.weather-part .location {
+  display: flex;
+  font-size: 19px;
+  padding: 0 20px;
+  text-align: center;
+  margin-bottom: 30px;
+  align-items: flex-start;
+}
+
+.location i {
+  font-size: 22px;
+  margin: 4px 5px 0 0;
+}
+
+.weather-part .bottom-details {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  border-top: 1px solid #ccc;
+}
+
+.bottom-details .column {
+  display: flex;
+  width: 100%;
+  padding: 15px 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.column i {
+  color: var(--secondary-color);
+  font-size: 40px;
+}
+
+.column.humidity {
+  border-left: 1px solid #ccc;
+}
+
+.column .details {
+  margin-left: 3px;
+}
+
+.details .temp,
+.humidity span {
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: -3px;
+}
+
+.details .temp .deg {
+  margin: 0;
+  font-size: 17px;
+  padding: 0 2px 0 1px;
+}
+
+.column .details p {
+  font-size: 14px;
+  margin-top: -6px;
+}
+
+.humidity i {
+  font-size: 37px;
+}
+
+/* COLOR PALETTE */
+.color-palette {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 12px;
+  right: 0;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 30px;
+  padding: 8px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  /* Agregada transición */
+}
+
+.color-palette .theme-color {
+  background-color: red;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  /* Agregada transición */
+}
+
+.color-palette .theme-color:not(:last-child) {
+  margin-bottom: 10px;
+}
+/* drak mode palette */
+.dark-mode {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 50%;
+  padding: 8px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: background-color 0.3s ease, color 0.3s ease; /* Agregadas transiciones */
+}
+
+.dark-mode-btn {
+  display: inline-block;
+  font-size: 20px;
+  cursor: pointer;
+  color: #fff; /* Ajusta el color del ícono aquí */
+  transition: color 0.3s ease; /* Agregada transición */
+}
+
+
+.color-palette .theme-color.selected {
+  border: 2px solid #00ff00;
+  /* Borde verde */
+}
+
+
+/* Estilos referentes a los iconos de redes sociales y el footer */
+textarea {
+  resize: none;
+}
+
+footer {
+  gap: 10px;
+  margin: 10px;
+}
+
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+
+.svg-inline--fa {
+  vertical-align: -0.200em;
+}
+
+.rounded-social-buttons {
+  text-align: center;
+}
+
+.rounded-social-buttons .social-button {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  width: 3.125rem;
+  height: 3.125rem;
+  border: 0.125rem solid transparent;
+  padding: 0;
+  text-decoration: none;
+  text-align: center;
+  color: #fefefe;
+  font-size: 1.5625rem;
+  font-weight: normal;
+  line-height: 2em;
+  border-radius: 1.6875rem;
+  transition: all 0.5s ease;
+  margin-right: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.rounded-social-buttons .social-button:hover,
+.rounded-social-buttons .social-button:focus {
+  -webkit-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+
+.rounded-social-buttons .fa-twitter,
+.fa-facebook-f,
+.fa-linkedin,
+.fa-tiktok,
+.fa-youtube,
+.fa-instagram {
+  font-size: 25px;
+}
+
+.rounded-social-buttons .social-button.facebook {
+  background: #3b5998;
+}
+
+.rounded-social-buttons .social-button.facebook:hover,
+.rounded-social-buttons .social-button.facebook:focus {
+  color: #3b5998;
+  background: #fefefe;
+  border-color: #3b5998;
+}
+
+.rounded-social-buttons .social-button.twitter {
+  background: #55acee;
+}
+
+.rounded-social-buttons .social-button.twitter:hover,
+.rounded-social-buttons .social-button.twitter:focus {
+  color: #55acee;
+  background: #fefefe;
+  border-color: #55acee;
+}
+
+.rounded-social-buttons .social-button.linkedin {
+  background: #007bb5;
+}
+
+.rounded-social-buttons .social-button.linkedin:hover,
+.rounded-social-buttons .social-button.linkedin:focus {
+  color: #007bb5;
+  background: #fefefe;
+  border-color: #007bb5;
+}
+
+.rounded-social-buttons .social-button.tiktok {
+  background: #000000;
+}
+
+.rounded-social-buttons .social-button.tiktok:hover,
+.rounded-social-buttons .social-button.tiktok:focus {
+  color: #000000;
+  background: #fefefe;
+  border-color: #000000;
+}
+
+.rounded-social-buttons .social-button.youtube {
+  background: #bb0000;
+}
+
+.rounded-social-buttons .social-button.youtube:hover,
+.rounded-social-buttons .social-button.youtube:focus {
+  color: #bb0000;
+  background: #fefefe;
+  border-color: #bb0000;
+}
+
+.rounded-social-buttons .social-button.instagram {
+  background: #125688;
+}
+
+.rounded-social-buttons .social-button.instagram:hover,
+.rounded-social-buttons .social-button.instagram:focus {
+  color: #125688;
+  background: #fefefe;
+  border-color: #125688;
+}
+
+
+
+/* CSS iconos del tiempo */
+/* CSS iconos del tiempo */
+.element svg { 
+  height: 500px; /* Ajusta la altura según tu preferencia */
+  width: 370px;  /* Ajusta el ancho según tu preferencia */
+  margin: 25px;
+  flex: 0 0 auto;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
+.carousel {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  transition: transform 4s ease-in-out;
+}
+
+.white {
+  fill: #FFFFFF;
+}
+
+.gray {
+  fill: #E0E0E0;
+}
+
+.yellow {
+  fill: #FFEB3B;
+}
+
+.element {
+  display: none; /* Oculta todos los elementos de clima por defecto */
+}
+
+.visible {
+  display: block; /* Muestra el elemento de clima actual */
+}
+
+/* Añade reglas específicas para aumentar el tamaño de algunos iconos */
+.yellow.large {
+  height: 200px;
+  width: 200px;
+}
+
+/* Añade reglas específicas para aumentar el tamaño de otros iconos */
+.gray.large {
+  height: 250px;
+  width: 250px;
+}
+
+
+
+/*css del nav*/
+
+  .header {
+    position: fixed; /* Cambiado de "relative" a "fixed" */
+    top: 0; /* Alinea el encabezado en la parte superior */
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--off-white);
+    padding: 0 25px;
+    transition: 0.3s;
+    z-index: 1000; /* Asegura que el encabezado esté sobre otros elementos */
+  }
+  /* Header styles */
+
+
+.logo a {
+  display: block;
+  /* Logo link styles */
+}
+
+.logo a img {
+  display: block;
+  width: 100%;
+  /* Logo image styles */
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* Navigation container styles */
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  z-index: 1;
+  transition: 0.5s;
+  /* Menu styles */
+}
+
+.menu li {
+  list-style-type: none;
+  /* Remove default list styles */
+}
+
+.menu li a {
+  color: var(--dark-blue);
+  text-decoration: none;
+  display: block;
+  padding: 40px 25px;
+  font-size: 18px;
+  line-height: 1;
+  transition: 0.3s;
+  /* Menu item styles */
+}
+
+.menu li a:hover {
+  box-shadow: 0 -5px 0px #fff inset,
+      500px 0 0 rgba(255, 255, 255, 0.03) inset;
+  padding: 35px 25px 45px 25px;
+  /* Menu item hover styles */
+}
+
+/* Estilo del contenedor del mapa */
+#map {
+  margin: 50px;
+  height: 500px; /* Ajusta la altura según tus necesidades */
+  width: 100%;
+  border: 1px solid #ddd; /* Borde alrededor del mapa */
+  border-radius: 10px; /* Agregado para bordes redondeados */
+}
+
+/* Estilo de las capas de Leaflet */
+.leaflet-container {
+  background-color: #f5f5f5; /* Color de fondo del contenedor de Leaflet */
+  border-radius: 10px; /* Agregado para bordes redondeados */
+}
+
+
+
+
+/* Media Queries */
+
+/* Estilos generales para pantallas más pequeñas (hasta 436px) */
+@media only screen and (max-width: 436px) {
+  .wrapper {
+    max-width: 90%;
+    min-width: 90%;
+  }
+
+  .color-palette {
+    max-width: 90%;
+    min-width: 90%;
+  }
+
+  .color-palette .theme-color {
+    width: 22px;
+    height: 22px;
+  }
+
+  .menu {
+    flex-direction: column; /* Cambia a una disposición de columna para pantallas más pequeñas */
+  }
+
+  .menu li a {
+    padding: 20px 25px; /* Ajusta el espacio alrededor de los elementos de menú */
+    font-size: 16px; /* Disminuye el tamaño del texto del menú */
+  }
+}
+
+/* Estilos adicionales para pantallas medianas (hasta 636px) */
+@media only screen and (max-width: 636px) {
+  .color-palette {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    padding: 0;
+    margin: 0;
+    width: 400px;
+    margin-bottom: 16px;
+  }
+
+  .color-palette .theme-color {
+    margin-top: 10px;
+  }
+
+  .color-palette .theme-color:not(:last-child) {
+    margin-right: 10px;
+  }
+}
+/* Estilos generales para pantallas más pequeñas (hasta 436px) */
+@media only screen and (max-width: 436px) {
+  #map {
+    margin: 20px; /* Ajusta el margen para pantallas más pequeñas */
+  }
+}
+
+/* Estilos adicionales para pantallas medianas (hasta 636px) */
+@media only screen and (max-width: 636px) {
+  #map {
+    margin: 30px; /* Ajusta el margen para pantallas medianas */
+  }
+}
