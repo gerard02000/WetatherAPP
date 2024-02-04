@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/boxicons/2.0.7/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
         integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc"
         crossorigin="anonymous"></script>
+    <script src="scriptPrevisiones.js" defer></script>
+
 
     <!-- Agregar hoja de estilo de Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -38,14 +41,55 @@
         </div>
     </header>
 
-    <!-- Contenedor para mostrar el mapa Leaflet -->
-    <div id="map"></div>
+    <div id="weather-container">
+        <label for="city-input">Ingresa el nombre de la ciudad:</label>
+        <input type="text" id="city-input" placeholder="Ej. Montilla">
+
+        <!-- Contenedor principal con flexbox para disposición en columna -->
+        <div class="container2">
+            <!-- Cuadro weather-info con flexbox para disposición en horizontal -->
+            <div class="weather-info">
+                <!-- El contenido del clima se mostrará aquí dinámicamente mediante JavaScript -->
+            </div>
+
+            <!-- Contenedor de la previsión del tiempo en columna -->
+            <div class="forecast-info">
+                <p>Previsión para los próximos 3 días:</p>
+                <div class="forecast-item">
+                    <!-- Contenido de la previsión del primer día -->
+                </div>
+                <div class="forecast-item">
+                    <!-- Contenido de la previsión del segundo día -->
+                </div>
+                <div class="forecast-item">
+                    <!-- Contenido de la previsión del tercer día -->
+                </div>
+            </div>
+        </div>
+
+        <button id="search-btn">Buscar</button>
+    </div>
 
 
+    <script async src="https://app2.weatherwidget.org/js/?id=ww_42a4fe00750b1"></script>
+    <footer class="footer">
+        <div class="waves">
+            <div class="wave" id="wave1"></div>
+            <div class="wave" id="wave2"></div>
+            <div class="wave" id="wave3"></div>
+            <div class="wave" id="wave4"></div>
+        </div>
 
-    <!-- Vincular Leaflet y tu script para cargar el mapa -->
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="scriptPrevisiones.js"></script> <!-- Agrega el enlace a tu script que configura el mapa -->
+        <ul class="menu">
+            <li class="menu__item"><a class="menu__link" href="index.html">Home</a></li>
+            <li class="menu__item"><a class="menu__link" href="mapas.html">Mapas</a></li>
+            <li class="menu__item"><a class="menu__link" href="previsiones.html">Previsiones</a></li>
+            <li class="menu__item"><a class="menu__link" href="https://github.com/gerard02000">Mas
+                    proyectos</a></li>
+        </ul>
+    </footer>
+
+
 </body>
 
 </html>

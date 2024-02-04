@@ -45,6 +45,8 @@ body {
   -webkit-backdrop-filter: blur(3px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
+  margin-bottom: 50px;
+  
 }
 
 .wrapper header {
@@ -273,6 +275,7 @@ header i {
   padding: 8px;
   text-align: center;
   transition: background-color 0.3s ease;
+  
   /* Agregada transición */
 }
 
@@ -581,8 +584,8 @@ footer {
 
 /* Estilo del contenedor del mapa */
 #map {
-  margin: 50px;
-  height: 500px; /* Ajusta la altura según tus necesidades */
+  margin: 100px;
+  height: 480px; /* Ajusta la altura según tus necesidades */
   width: 100%;
   border: 1px solid #ddd; /* Borde alrededor del mapa */
   border-radius: 10px; /* Agregado para bordes redondeados */
@@ -607,12 +610,18 @@ footer {
   left: 0;
   width: 100%;
   background: #3586ff;
-  min-height: 100px;
-  padding: 10px 120px;
+  min-height: 40px; /* Altura del footer ajustada */
+  padding: 5px 0; /* Ajuste del padding */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  z-index: 1000; /* Asegurar que el footer esté sobre otros elementos */
+  
+  margin-top: 100px; /* Ajuste del margen superior */
+  margin-left: 0; /* Márgenes laterales ajustados según tus preferencias */
+  margin-right: 0; /* Márgenes laterales ajustados según tus preferencias */
+  margin-bottom: 0;
 }
 
 .social-icon,
@@ -631,7 +640,7 @@ footer {
 }
 
 .social-icon__link {
-  font-size: 2rem;
+  font-size: 0,8rem;
   color: #fff;
   margin: 0 10px;
   display: inline-block;
@@ -642,7 +651,7 @@ footer {
 }
 
 .menu__link {
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   color: #fff;
   margin: 0 10px;
   display: inline-block;
@@ -659,16 +668,16 @@ footer {
 .footer p {
   color: #fff;
   margin: 15px 0 10px 0;
-  font-size: 1rem;
-  font-weight: 300;
+  font-size:0.8rem;
+  font-weight: 250;
 }
 
 .wave {
   position: absolute;
-  top: -100px;
+  top: -15px;
   left: 0;
   width: 100%;
-  height: 100px;
+  height: 15px;
   background: url("https://i.ibb.co/wQZVxxk/wave.png");
   background-size: 1000px 100px;
 }
@@ -699,6 +708,86 @@ footer {
   opacity: 0.7;
   bottom: 20px;
   animation: animate 3s linear infinite;
+}
+
+
+
+/* Estilos para el contenedor de información del clima */
+.weather-info {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para el div del clima */
+
+/* Estilos para el input y el botón de búsqueda */
+
+#city-input,
+#search-btn {
+  width: 80%; /* Ancho del 80% del contenedor principal */
+  height: 45px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 7px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#city-input {
+  background-color: #fff;
+}
+
+#search-btn {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  cursor: pointer;
+  padding: 10px 15px; /* Ajusta el relleno para mejorar el aspecto visual */
+  font-size: 16px;
+  border: none;
+  border-radius: 7px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#search-btn:hover {
+  background-color: #3143e8;
+}
+
+/* Estilos para el contenedor de información del clima */
+#weather-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.weather-info,
+.forecast-info {
+  width: 48%; /* Ajusta el ancho según sea necesario */
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.forecast-info {
+  flex-shrink: 0;
+}
+
+.forecast-item {
+  margin-bottom: 10px;
 }
 
 @keyframes animateWaves {

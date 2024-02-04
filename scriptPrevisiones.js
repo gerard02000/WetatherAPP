@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
     let isDark = false;
 
@@ -26,11 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to handle dark mode button click
     function handleDarkModeButtonClick() {
-        // Desmarcar todos los botones de la paleta de colores
-        colorBtns.forEach((btn) => {
-            btn.classList.remove("selected");
-        });
-
         const targetColor = isDark ? colors[3] : "#000";
         changeTheme(targetColor);
         isDark = !isDark;
@@ -62,37 +56,135 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    const openWeatherMapApiKey = 'f2e7b973d010d97bf975e9a827e9b370'; // Clave de API de OpenWeatherMap
+    const weatherbitApiKey = '0f8dfe824d464e92a4bdd14ec408c1b6'; // Clave de API de Weatherbit
 
+    // Llamar a collectData cuando la página carga o cuando se hace clic en el botón de búsqueda
+    collectData();
+    document.getElementById('search-btn').addEventListener('click', collectData);
 
-    var map = L.map('map').setView([40, -4], 6);
+    function getWeather(apiKey, city) {
+        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
 
-    // Capa de OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(weatherData => {
+                displayWeather(weatherData);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
 
-    // API Key AEMET
-    var apiKeyAemet = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnZXJhcmRvbWFkcmlsaXN0YUBnbWFpbC5jb20iLCJqdGkiOiJiNzlmNjMzOC02NzdkLTRjZjgtOTUwNS1iMDc0ZTY1NWUwZGUiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTcwNjgzMTI5NSwidXNlcklkIjoiYjc5ZjYzMzgtNjc3ZC00Y2Y4LTk1MDUtYjA3RGU2NTVlMGRlIiwicm9sZSI6IiJ9.LJrACojrMknhDzo1PHsTf9eT-_U_3MtRV_cIoTCr9QQ";
+    function displayWeather(data) {
+        const weatherInfoContainer = document.querySelector('.weather-info');
+        weatherInfoContainer.innerHTML = '';
 
-    // URL de la API AEMET
-    var apiUrl = "https://opendata.aemet.es/opendata/api/mapasygraficos/mapassignificativos/fecha/2024-02-03/esp/d%2B0?api_key=" + apiKeyAemet;
+        if (data.main && data.weather) {
+            const temperature = data.main.temp - 273.15; // Convertir de Kelvin a Celsius
+            const description = data.weather[0].description;
+            const humidity = data.main.humidity;
+            const windSpeed = data.wind.speed;
+            const minTemperature = data.main.temp_min - 273.15;
+            const maxTemperature = data.main.temp_max - 273.15;
+            const pressure = data.main.pressure;
+            const visibility = data.visibility;
+            const sunriseTimestamp = data.sys.sunrise;
+            const sunsetTimestamp = data.sys.sunset;
 
-    // Realizar la solicitud a la API AEMET
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            // Verificar si la respuesta es exitosa
-            if (data.estado === 0) {
-                // Procesar datos y mostrar el mapa
-                var mapData = data.datos;
-                // Aquí puedes usar los datos para personalizar tu mapa
-                console.log(mapData);
-            } else {
-                console.error('Error en la solicitud a la API de AEMET:', data.descripcion);
+            const weatherInfo = document.createElement('div');
+            weatherInfo.classList.add('weather-info-box'); // Agregar una clase para el estilo del cuadro
+            weatherInfo.innerHTML = `
+                <p class="weather-info-text"><i class="fas fa-thermometer-half"></i> Temperature: ${temperature.toFixed(2)} °C</p>
+                <p class="weather-info-text"><i class="fas fa-cloud"></i> Description: ${description}</p>
+                <p class="weather-info-text"><i class="fas fa-tint"></i> Humidity: ${humidity}%</p>
+                <p class="weather-info-text"><i class="fas fa-wind"></i> Wind Speed: ${windSpeed} m/s</p>
+                <p class="weather-info-text"><i class="fas fa-temperature-low"></i> Min Temperature: ${minTemperature.toFixed(2)} °C</p>
+                <p class="weather-info-text"><i class="fas fa-temperature-high"></i> Max Temperature: ${maxTemperature.toFixed(2)} °C</p>
+                <p class="weather-info-text"><i class="fas fa-tachometer-alt"></i> Pressure: ${pressure} hPa</p>
+                <p class="weather-info-text"><i class="fas fa-eye"></i> Visibility: ${visibility / 1000} km</p>
+                <p class="weather-info-text"><i class="fas fa-sun"></i> Sunrise: ${formatTimestamp(sunriseTimestamp)}</p>
+                <p class="weather-info-text"><i class="fas fa-moon"></i> Sunset: ${formatTimestamp(sunsetTimestamp)}</p>
+            `;
+
+            weatherInfoContainer.appendChild(weatherInfo);
+
+            // Mostrar previsión del tiempo para los próximos 3 días utilizando Weatherbit
+            if (data.coord) {
+                getWeatherbitForecast(weatherbitApiKey, data.coord.lat, data.coord.lon);
             }
-        })
-        .catch(error => {
-            console.error('Error en la solicitud a la API de AEMET:', error);
-        });
-});
+        } else {
+            weatherInfoContainer.innerHTML = '<p>No se encontraron datos de clima.</p>';
+        }
+    }
 
+    function collectData() {
+        const cityInput = document.getElementById('city-input');
+        const city = cityInput.value.trim(); // Utiliza trim para eliminar espacios en blanco al inicio y al final
+
+        if (city !== '') {
+            getWeather(openWeatherMapApiKey, city);
+        } else {
+            console.error('Error: Campo de ciudad vacío');
+        }
+    }
+
+    function formatTimestamp(timestamp) {
+        const date = new Date(timestamp * 1000);
+        const hours = date.getHours();
+        const minutes = "0" + date.getMinutes();
+        const formattedTime = hours + ':' + minutes.substr(-2);
+        return formattedTime;
+    }
+
+    function getWeatherbitForecast(apiKey, lat, lon) {
+        const forecastUrl = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${lat}&lon=${lon}&key=${apiKey}`;
+
+        fetch(forecastUrl)
+            .then(response => response.json())
+            .then(forecastData => {
+                displayWeatherbitForecast(forecastData);
+            })
+            .catch(error => {
+                console.error('Error fetching Weatherbit forecast:', error);
+            });
+    }
+
+    function displayWeatherbitForecast(forecastData) {
+        const forecastContainer = document.querySelector('.weather-forecast');
+
+        if (!forecastContainer) {
+            console.error('Error: No se encontró el contenedor de la previsión.');
+            return;
+        }
+
+        const forecastItems = forecastContainer.querySelectorAll('.forecast-item');
+
+        if (!forecastItems || forecastItems.length < 3) {
+            console.error('Error: No se encontraron elementos de la previsión.');
+            return;
+        }
+
+        for (let i = 0; i < 3; i++) {
+            const forecastItem = forecastItems[i];
+            const forecast = forecastData.data[i];
+
+            if (forecast) {
+                const date = forecast.datetime;
+                const dayOfWeek = new Date(date).toLocaleDateString('en-US', { weekday: 'short' });
+                const temperatureMin = forecast.min_temp;
+                const temperatureMax = forecast.max_temp;
+
+                forecastItem.innerHTML = `
+                    <p>${dayOfWeek}</p>
+                    <p>Min: ${temperatureMin.toFixed(2)} °C</p>
+                    <p>Max: ${temperatureMax.toFixed(2)} °C</p>
+                    <p>${forecast.weather.description}</p>
+                `;
+            } else {
+                console.error('Error: No se encontraron datos de previsión para el día ' + (i + 1));
+                forecastItem.innerHTML = '<p>No se encontraron datos de previsión.</p>';
+            }
+        }
+    }
+});
