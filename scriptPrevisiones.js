@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.documentElement.style.setProperty("--primary-color", color);
 
         // Cambiar el color del ícono de la luna
-        const moonIcon = document.querySelector(".bx-moon");
+        const moonIcon = document.querySelector(".fas.fa-moon");
         if (moonIcon) {
             moonIcon.style.color = color; // Ajusta el color según tus necesidades
         }
@@ -120,12 +120,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function collectData() {
         const cityInput = document.getElementById('city-input');
-        const city = cityInput.value.trim(); // Utiliza trim para eliminar espacios en blanco al inicio y al final
+        const city = cityInput.value.trim();
 
         if (city !== '') {
             getWeather(openWeatherMapApiKey, city);
         } else {
             console.error('Error: Campo de ciudad vacío');
+            // Puedes proporcionar retroalimentación al usuario aquí, por ejemplo, mostrar un mensaje de error en la página.
         }
     }
 
@@ -151,40 +152,67 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function displayWeatherbitForecast(forecastData) {
-        const forecastContainer = document.querySelector('.weather-forecast');
-
-        if (!forecastContainer) {
-            console.error('Error: No se encontró el contenedor de la previsión.');
-            return;
-        }
-
-        const forecastItems = forecastContainer.querySelectorAll('.forecast-item');
+        const forecastItems = document.querySelectorAll('.forecast-info .forecast-item');
 
         if (!forecastItems || forecastItems.length < 3) {
             console.error('Error: No se encontraron elementos de la previsión.');
             return;
         }
 
-        for (let i = 0; i < 3; i++) {
-            const forecastItem = forecastItems[i];
-            const forecast = forecastData.data[i];
+        // Verificar si hay suficientes elementos .forecast-item
+        if (forecastItems.length >= 3) {
+            for (let i = 0; i < 3; i++) {
+                const forecastItem = forecastItems[i];
+                const forecast = forecastData.data[i];
 
-            if (forecast) {
-                const date = forecast.datetime;
-                const dayOfWeek = new Date(date).toLocaleDateString('en-US', { weekday: 'short' });
-                const temperatureMin = forecast.min_temp;
-                const temperatureMax = forecast.max_temp;
+                if (forecast) {
+                    const date = forecast.datetime;
+                    const dayOfWeek = new Date(date).toLocaleDateString('en-US', { weekday: 'short' });
+                    const temperatureMin = forecast.min_temp;
+                    const temperatureMax = forecast.max_temp;
+                    const description = forecast.weather.description;
+                    const iconCode = forecast.weather.icon;
+
+                    // Obtener más detalles sobre el clima para cada día
+                    getWeatherDetails(date, forecastItem, dayOfWeek, temperatureMin, temperatureMax, description, iconCode);
+                } else {
+                    console.error('Error: No se encontraron datos de previsión para el día ' + (i + 1));
+                    forecastItem.innerHTML = '<p>No se encontraron datos de previsión.</p>';
+                }
+            }
+        } else {
+            console.error('Error: No hay suficientes elementos .forecast-item.');
+        }
+    }
+
+    function getWeatherDetails(date, forecastItem, dayOfWeek, temperatureMin, temperatureMax, description, iconCode) {
+        const apiKey = 'tu_clave_de_api_aqui'; // Reemplaza con tu clave de API
+
+        // Utiliza la fecha para hacer una solicitud más detallada sobre el clima para cada día
+        const detailApiUrl = `https://api.weatherbit.io/v2.0/history/daily?lat=TU_LATITUD&lon=TU_LONGITUD&start_date=${date}&end_date=${date}&key=${apiKey}`;
+
+        fetch(detailApiUrl)
+            .then(response => response.json())
+            .then(detailData => {
+                // Añadir más información al elemento del pronóstico
+                const precipitation = detailData.data[0].precipitation;
+                const uvIndex = detailData.data[0].uv;
+                const windSpeed = detailData.data[0].wind_spd;
 
                 forecastItem.innerHTML = `
                     <p>${dayOfWeek}</p>
                     <p>Min: ${temperatureMin.toFixed(2)} °C</p>
                     <p>Max: ${temperatureMax.toFixed(2)} °C</p>
-                    <p>${forecast.weather.description}</p>
+                    <p>${description}</p>
+                    <p>Precipitation: ${precipitation.toFixed(2)} mm</p>
+                    <p>UV Index: ${uvIndex}</p>
+                    <p>Wind Speed: ${windSpeed.toFixed(2)} m/s</p>
+                    <img src="https://www.weatherbit.io/static/img/icons/${iconCode}.png" alt="Weather Icon">
                 `;
-            } else {
-                console.error('Error: No se encontraron datos de previsión para el día ' + (i + 1));
-                forecastItem.innerHTML = '<p>No se encontraron datos de previsión.</p>';
-            }
-        }
+            })
+            .catch(error => {
+                console.error('Error fetching detailed weather data:', error);
+                forecastItem.innerHTML = '<p>Error al obtener detalles del clima.</p>';
+            });
     }
 });

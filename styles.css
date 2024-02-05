@@ -711,8 +711,6 @@ footer {
 }
 
 
-
-/* Estilos para el contenedor de información del clima */
 .weather-info {
   margin-top: 20px;
   padding: 20px;
@@ -721,33 +719,53 @@ footer {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos para el div del clima */
+.container2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
 
-/* Estilos para el input y el botón de búsqueda */
+/* Cuadro de información del clima y previsión */
+.weather-info, .forecast-info {
+  width: 300px;
+  height: 300px;
+  box-sizing: border-box;
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin: 10px;
+}
 
-#city-input,
+/* Contenedor para elementos de la previsión */
+.forecast-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+/* Estilo para cada elemento de la previsión */
+.forecast-item {
+  width: 200px;
+  height: 100px;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 10px;
+  text-align: center;
+  font-size: 20px;
+}
+
+/* Estilos para el botón de búsqueda */
 #search-btn {
-  width: 80%; /* Ancho del 80% del contenedor principal */
+  width: 100%;
+  max-width: 200spx; /* Ajusta el ancho máximo según sea necesario */
   height: 45px;
   margin-top: 10px;
   margin-bottom: 20px;
   padding: 10px;
   font-size: 16px;
-  border: none;
-  border-radius: 7px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-#city-input {
-  background-color: #fff;
-}
-
-#search-btn {
   background-color: var(--primary-color);
   color: var(--secondary-color);
   cursor: pointer;
-  padding: 10px 15px; /* Ajusta el relleno para mejorar el aspecto visual */
-  font-size: 16px;
   border: none;
   border-radius: 7px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -758,36 +776,18 @@ footer {
   background-color: #3143e8;
 }
 
-/* Estilos para el contenedor de información del clima */
-#weather-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.container2 {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
+/* Input de ciudad */
+#city-input {
   width: 100%;
-}
-
-.weather-info,
-.forecast-info {
-  width: 48%; /* Ajusta el ancho según sea necesario */
-  box-sizing: border-box;
+  height: 45px;
+  margin-top: 10px;
+  margin-bottom: 20px;
   padding: 10px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-}
-
-.forecast-info {
-  flex-shrink: 0;
-}
-
-.forecast-item {
-  margin-bottom: 10px;
+  font-size: 16px;
+  background-color: #fff;
+  border: none;
+  border-radius: 7px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes animateWaves {
@@ -871,5 +871,17 @@ footer {
 @media only screen and (max-width: 636px) {
   #map {
     margin: 30px; /* Ajusta el margen para pantallas medianas */
+  }
+}
+
+/* Media Queries */
+@media only screen and (max-width: 768px) {
+  .container2 {
+    flex-direction: column; /* Cambia a una disposición de columna para pantallas más pequeñas */
+    align-items: stretch; /* Asegura que los elementos se estiren en la dirección principal */
+  }
+
+  .forecast-info {
+    flex-basis: 100%; /* Ocupa todo el ancho en pantallas más pequeñas */
   }
 }
