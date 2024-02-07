@@ -731,7 +731,7 @@ footer {
   width: 300px;
   height: 300px;
   box-sizing: border-box;
-  padding: 40px;
+  padding:30px;
   border: 1px solid #ccc;
   margin: 5px;
 }
@@ -746,7 +746,7 @@ footer {
 /* Estilo para cada elemento de la previsión */
 .forecast-item {
   width: 200px;
-  height: 180px; /* Aumentamos la altura para dar más espacio a los datos */
+  height: 240px; /* Aumentamos la altura para dar más espacio a los datos */
   padding: 5px;
   border-radius: 10px;
   margin: 5px;
