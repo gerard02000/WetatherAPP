@@ -159,6 +159,15 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        // Obtener la fecha actual y calcular los próximos tres días
+        const today = new Date();
+        const nextThreeDays = [];
+        for (let i = 1; i <= 3; i++) {
+            const nextDay = new Date(today);
+            nextDay.setDate(today.getDate() + i);
+            nextThreeDays.push(nextDay);
+        }
+
         // Verificar si hay suficientes elementos .forecast-item
         if (forecastItems.length >= 3) {
             for (let i = 0; i < 3; i++) {
@@ -166,15 +175,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 const forecast = forecastData.data[i];
 
                 if (forecast) {
-                    const date = forecast.datetime;
-                    const dayOfWeek = new Date(date).toLocaleDateString('en-US', { weekday: 'short' });
+                    const date = nextThreeDays[i];
+                    const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'short' });
                     const temperatureMin = forecast.min_temp;
                     const temperatureMax = forecast.max_temp;
                     const description = forecast.weather.description;
                     const iconCode = forecast.weather.icon;
+                    const precipitation = forecast.precip;
 
-                    // Obtener más detalles sobre el clima para cada día
-                    getWeatherDetails(date, forecastItem, dayOfWeek, temperatureMin, temperatureMax, description, iconCode);
+                    // Mostrar la información de la previsión para cada día
+                    forecastItem.innerHTML = `
+                        <p>${dayOfWeek}</p>
+                        <p>Min: ${temperatureMin.toFixed(2)} °C</p>
+                        <p>Max: ${temperatureMax.toFixed(2)} °C</p>
+                        <p>${description}</p>
+                        <p>Precipitación: ${precipitation.toFixed(2)} mm</p>
+                        <img src="https://www.weatherbit.io/static/img/icons/${iconCode}.png" alt="Weather Icon">
+                    `;
                 } else {
                     console.error('Error: No se encontraron datos de previsión para el día ' + (i + 1));
                     forecastItem.innerHTML = '<p>No se encontraron datos de previsión.</p>';
@@ -183,36 +200,5 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             console.error('Error: No hay suficientes elementos .forecast-item.');
         }
-    }
-
-    function getWeatherDetails(date, forecastItem, dayOfWeek, temperatureMin, temperatureMax, description, iconCode) {
-        const apiKey = 'tu_clave_de_api_aqui'; // Reemplaza con tu clave de API
-
-        // Utiliza la fecha para hacer una solicitud más detallada sobre el clima para cada día
-        const detailApiUrl = `https://api.weatherbit.io/v2.0/history/daily?lat=TU_LATITUD&lon=TU_LONGITUD&start_date=${date}&end_date=${date}&key=${apiKey}`;
-
-        fetch(detailApiUrl)
-            .then(response => response.json())
-            .then(detailData => {
-                // Añadir más información al elemento del pronóstico
-                const precipitation = detailData.data[0].precipitation;
-                const uvIndex = detailData.data[0].uv;
-                const windSpeed = detailData.data[0].wind_spd;
-
-                forecastItem.innerHTML = `
-                    <p>${dayOfWeek}</p>
-                    <p>Min: ${temperatureMin.toFixed(2)} °C</p>
-                    <p>Max: ${temperatureMax.toFixed(2)} °C</p>
-                    <p>${description}</p>
-                    <p>Precipitation: ${precipitation.toFixed(2)} mm</p>
-                    <p>UV Index: ${uvIndex}</p>
-                    <p>Wind Speed: ${windSpeed.toFixed(2)} m/s</p>
-                    <img src="https://www.weatherbit.io/static/img/icons/${iconCode}.png" alt="Weather Icon">
-                `;
-            })
-            .catch(error => {
-                console.error('Error fetching detailed weather data:', error);
-                forecastItem.innerHTML = '<p>Error al obtener detalles del clima.</p>';
-            });
     }
 });
