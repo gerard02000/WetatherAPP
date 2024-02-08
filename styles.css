@@ -817,185 +817,94 @@ footer {
     background-positon-x: 0px;
   }
 }
+/* Media Queries para hacer la página responsive */
 
-/* Media Queries */
-/* Media Queries para pantallas pequeñas */
-
-/* Estilos generales para pantallas más pequeñas (hasta 768px) */
-@media only screen and (max-width: 768px) {
-  .wrapper {
-    width: 90%; /* Reducir el ancho del contenedor principal */
-  }
-
-  .menu {
-    flex-direction: column; /* Cambiar a disposición de columna para menú */
-  }
-
-  .menu li a {
-    padding: 20px 25px; /* Ajustar el espacio alrededor de los elementos del menú */
-    font-size: 16px; /* Reducir el tamaño del texto del menú */
-  }
-
-  #map {
-    margin: 20px; /* Ajustar el margen para pantallas más pequeñas */
-  }
-
-  .footer {
-    margin-top: 0; /* Eliminar el margen superior del footer */
-  }
-
-  .footer p {
-    margin-bottom: 5px; /* Reducir el margen inferior del párrafo en el footer */
-  }
-
-  .rounded-social-buttons .social-button {
-    width: 2.5rem; /* Reducir el ancho de los botones de redes sociales */
-    height: 2.5rem; /* Reducir la altura de los botones de redes sociales */
-    font-size: 1.25rem; /* Reducir el tamaño de fuente de los botones de redes sociales */
-  }
-}
-/* Estilos adicionales para pantallas más pequeñas (hasta 576px) */
-@media only screen and (max-width: 576px) {
-  .wrapper {
-    width: 90%; /* Reducir el ancho del contenedor principal */
-  }
-
-  .menu {
-    flex-direction: column; /* Cambiar a disposición de columna para menú */
-  }
-
-  .menu li a {
-    padding: 20px 25px; /* Ajustar el espacio alrededor de los elementos del menú */
-    font-size: 16px; /* Reducir el tamaño del texto del menú */
-  }
-
-  #map {
-    margin: 20px; /* Ajustar el margen para pantallas más pequeñas */
-  }
-
-  .footer {
-    margin-top: 0; /* Eliminar el margen superior del footer */
-  }
-
-  .footer p {
-    margin-bottom: 5px; /* Reducir el margen inferior del párrafo en el footer */
-  }
-
-  .rounded-social-buttons .social-button {
-    width: 2.5rem; /* Reducir el ancho de los botones de redes sociales */
-    height: 2.5rem; /* Reducir la altura de los botones de redes sociales */
-    font-size: 1.25rem; /* Reducir el tamaño de fuente de los botones de redes sociales */
-  }
-
-  /* Ajustes para el nav superior */
-  .navbar {
-    flex-direction: column; /* Cambiar a disposición de columna */
-    align-items: center; /* Centrar elementos horizontalmente */
-  }
-
-  .navbar a {
-    margin-bottom: 10px; /* Agregar espacio entre elementos del nav */
-  }
-
-  /* Ajustes para el panel de colores */
-  .color-panel {
-    display: flex; /* Utilizar flexbox */
-    justify-content: center; /* Centrar elementos horizontalmente */
-    margin-bottom: 20px; /* Agregar espacio en la parte inferior */
-  }
-
-  .color-panel button {
-    margin: 0 5px; /* Agregar espacio entre botones */
+/* Ajustar el tamaño de fuente para diferentes tamaños de pantalla */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px; /* Reducir el tamaño de fuente para pantallas medianas */
   }
 }
 
-/* Estilos adicionales para pantallas más pequeñas (hasta 480px) */
-@media only screen and (max-width: 480px) {
-  .wrapper {
-    width: 95%; /* Reducir aún más el ancho del contenedor principal */
-  }
-
-  .menu li a {
-    padding: 15px 20px; /* Ajustar el espacio alrededor de los elementos del menú */
-    font-size: 14px; /* Reducir aún más el tamaño del texto del menú */
-  }
-
-  #map {
-    margin: 15px; /* Ajustar el margen para pantallas más pequeñas */
-  }
-
-  .footer p {
-    font-size: 0.75rem; /* Reducir el tamaño de fuente del párrafo en el footer */
-  }
-
-  .rounded-social-buttons .social-button {
-    width: 2.25rem; /* Reducir aún más el ancho de los botones de redes sociales */
-    height: 2.25rem; /* Reducir aún más la altura de los botones de redes sociales */
-    font-size: 1rem; /* Reducir aún más el tamaño de fuente de los botones de redes sociales */
+@media (max-width: 576px) {
+  html {
+    font-size: 12px; /* Reducir aún más el tamaño de fuente para pantallas pequeñas */
   }
 }
-/* Media Queries para pantallas pequeñas */
 
-/* Estilos adicionales para pantallas más pequeñas (hasta 375px) */
-@media only screen and (max-width: 375px) {
+/* Ajustes de diseño para pantallas más pequeñas */
+@media (max-width: 768px) {
   .wrapper {
-    width: 95%; /* Reducir aún más el ancho del contenedor principal */
+    width: 90%; /* Cambiar el ancho del contenedor principal para que se ajuste a la pantalla */
+    max-width: 90%; /* Modificado para hacer que el ancho máximo sea relativo al ancho del contenedor padre */
+    margin: 0 auto; /* Centrar el contenedor en pantallas más pequeñas */
+    padding: 10px; /* Agregar un poco de espacio de relleno alrededor del contenedor */
+    box-sizing: border-box; /* Incluir padding y border en el cálculo del ancho */
   }
 
+  .color-palette {
+    flex-direction: column; /* Mostrar los elementos en una columna en pantallas más pequeñas */
+    max-width: 90%; /* Modificado para que el ancho máximo sea relativo al ancho del contenedor padre */
+    margin: 10px auto; /* Centrar el panel de colores y agregar espacio entre el contenedor principal */
+  }
+
+  .container2 {
+    flex-direction: column; /* Mostrar los elementos en una columna en pantallas más pequeñas */
+    align-items: center; /* Centrar los elementos horizontalmente en pantallas más pequeñas */
+  }
+
+  .element {
+    display: none; /* Ocultar los iconos animados en pantallas más pequeñas */
+  }
+
+  .forecast-info {
+    width: 90%; /* Cambiar el ancho del contenedor de información del clima para que se ajuste a la pantalla */
+    margin: 10px auto; /* Centrar el contenedor de información del clima */
+  }
+  
   .menu li a {
-    padding: 15px 20px; /* Ajustar el espacio alrededor de los elementos del menú */
-    font-size: 14px; /* Reducir aún más el tamaño del texto del menú */
-  }
-
-  #map {
-    margin: 15px; /* Ajustar el margen para pantallas más pequeñas */
-  }
-
-  .footer p {
-    font-size: 0.75rem; /* Reducir el tamaño de fuente del párrafo en el footer */
-  }
-
-  .rounded-social-buttons .social-button {
-    width: 2.25rem; /* Reducir aún más el ancho de los botones de redes sociales */
-    height: 2.25rem; /* Reducir aún más la altura de los botones de redes sociales */
-    font-size: 1rem; /* Reducir aún más el tamaño de fuente de los botones de redes sociales */
-  }
-
-  /* Ajustes para el nav superior */
-  .navbar {
-    flex-direction: column; /* Cambiar a disposición de columna */
-    align-items: center; /* Centrar elementos horizontalmente */
-  }
-
-  .navbar a {
-    margin-bottom: 8px; /* Agregar espacio entre elementos del nav */
-  }
-
-  /* Ajustes para el panel de colores */
-  .color-panel {
-    flex-wrap: wrap; /* Permitir que los botones se envuelvan en varias líneas */
-    justify-content: center; /* Centrar elementos horizontalmente */
-    margin-bottom: 15px; /* Agregar espacio en la parte inferior */
-  }
-
-  .color-panel button {
-    margin: 5px; /* Agregar espacio entre botones */
-    width: 45px; /* Ajustar el ancho de los botones */
-    height: 45px; /* Ajustar la altura de los botones */
+    padding: 15px; /* Reducir el relleno de los elementos del menú para conservar el espacio */
+    font-size: 16px; /* Reducir el tamaño de fuente del menú para mejorar la legibilidad en pantallas más pequeñas */
   }
 }
-/* Estilos adicionales para pantallas más pequeñas (hasta 280px) */
-@media only screen and (max-width: 280px) {
+
+/* Imágenes y medios adaptativos */
+@media (max-width: 768px) {
+  .weather-part img {
+    max-width: 100%; /* Ajustar el ancho máximo de las imágenes al tamaño del contenedor para evitar desbordamientos */
+    height: auto; /* Mantener la proporción de la imagen al ajustar el ancho */
+  }
+
+}
+
+/* Ocultar elementos no esenciales */
+@media (max-width: 768px) {
+  .column {
+    display: none; /* Ocultar detalles adicionales en la sección de previsión en pantallas más pequeñas */
+  }
+}
+/* Media Queries para hacer la página responsive */
+
+/* Ajustar el tamaño de fuente para diferentes tamaños de pantalla */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px; /* Reducir el tamaño de fuente para pantallas medianas */
+  }
+}
+
+@media (max-width: 576px) {
+  html {
+    font-size: 12px; /* Reducir aún más el tamaño de fuente para pantallas pequeñas */
+  }
+}
+
+/* Ajustes de diseño para pantallas más pequeñas */
+@media (max-width: 768px) {
   .wrapper {
-    width: 100%; /* Utilizar todo el ancho disponible para el contenedor principal */
-  }
-
-  .menu li a {
-    padding: 12px 15px; /* Ajustar aún más el espacio alrededor de los elementos del menú */
-    font-size: 12px; /* Reducir aún más el tamaño del texto del menú */
-  }
-
-  #map {
-    margin: 5px; /* Ajustar el margen de manera más compacta para pantallas muy pequeñas */
+    max-width: 90%; /* Utilizar un ancho máximo relativo para que el wrapper se ajuste al contenido */
+    margin: 0 auto; /* Centrar el contenedor en pantallas más pequeñas */
+    padding: 10px; /* Agregar un poco de espacio de relleno alrededor del contenedor */
+    box-sizing: border-box; /* Incluir padding y border en el cálculo del ancho */
+    overflow-x: auto; /* Agregar scroll horizontal si es necesario */
   }
 }
