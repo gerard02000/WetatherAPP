@@ -800,6 +800,11 @@ footer {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.navigation-icons {
+  display: none;
+}
+
+
 @keyframes animateWaves {
   0% {
     background-position-x: 1000px;
@@ -817,94 +822,138 @@ footer {
     background-positon-x: 0px;
   }
 }
-/* Media Queries para hacer la página responsive */
 
-/* Ajustar el tamaño de fuente para diferentes tamaños de pantalla */
-@media (max-width: 768px) {
-  html {
-    font-size: 14px; /* Reducir el tamaño de fuente para pantallas medianas */
+
+@media (max-width: 800px) {
+  /* Deshabilitar todos los menús de navegación que no sean el de iconos */
+  .header .navigation,
+  .footer .menu {
+    display: none;
   }
-}
 
-@media (max-width: 576px) {
-  html {
-    font-size: 12px; /* Reducir aún más el tamaño de fuente para pantallas pequeñas */
+  /* Mostrar los iconos de navegación en el lateral izquierdo de la página */
+  .navigation-icons {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff; /* Color de fondo de los iconos */
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra para los iconos */
+    z-index: 1000; /* Asegurar que estén por encima de otros elementos */
   }
-}
 
-/* Ajustes de diseño para pantallas más pequeñas */
-@media (max-width: 768px) {
+  /* Estilo de los iconos de navegación */
+  .navigation-icons .nav-icon {
+    color: #333; /* Cambiar color de los iconos */
+    font-size: 24px; /* Tamaño de fuente de los iconos */
+    text-decoration: none; /* Quitar subrayado en los enlaces */
+    margin-bottom: 10px; /* Espacio entre los iconos */
+  }
+
+  /* Estilo del botón "Volver arriba" */
+  .back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #495af7;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    display: none; /* Ocultar el botón "Volver arriba" por defecto */
+  }
+
+  .back-to-top:hover {
+    background-color: #3143e8;
+  }
+
+  /* Mostrar el botón "Volver arriba" cuando el usuario haya bajado cierto punto en la página */
+  .show-back-to-top .back-to-top {
+    display: block;
+  }
+
+  /* Ajustar el wrapper para que ocupe el ancho completo */
   .wrapper {
-    width: 90%; /* Cambiar el ancho del contenedor principal para que se ajuste a la pantalla */
-    max-width: 90%; /* Modificado para hacer que el ancho máximo sea relativo al ancho del contenedor padre */
-    margin: 0 auto; /* Centrar el contenedor en pantallas más pequeñas */
-    padding: 10px; /* Agregar un poco de espacio de relleno alrededor del contenedor */
-    box-sizing: border-box; /* Incluir padding y border en el cálculo del ancho */
+    width: 100%;
+    max-width: 100%;
+    padding: 20px; /* Añadir padding para separar el contenido del borde */
   }
 
+  /* Ajustar el tamaño del input y el botón */
+  .input-part .content input[type="text"],
+  .input-part .content button {
+    width: calc(100% - 20px); /* El ancho total menos el padding */
+    margin-bottom: 10px; /* Espacio entre el input y el botón */
+  }
+
+  /* Ajustar el tamaño del icono de localización */
+  .input-part .content .separator {
+    width: calc(100% - 20px); /* El ancho total menos el padding */
+  }
+
+  /* Ajustar el tamaño del contenedor de la información meteorológica */
+  .weather-container {
+    padding: 20px; /* Añadir padding para separar el contenido del borde */
+  }
+
+  /* Ajustar el tamaño de la paleta de colores */
   .color-palette {
-    flex-direction: column; /* Mostrar los elementos en una columna en pantallas más pequeñas */
-    max-width: 90%; /* Modificado para que el ancho máximo sea relativo al ancho del contenedor padre */
-    margin: 10px auto; /* Centrar el panel de colores y agregar espacio entre el contenedor principal */
+    justify-content: space-between; /* Distribuir los colores uniformemente */
+    margin-bottom: 20px; /* Espacio entre la paleta y el contenido siguiente */
   }
 
-  .container2 {
-    flex-direction: column; /* Mostrar los elementos en una columna en pantallas más pequeñas */
-    align-items: center; /* Centrar los elementos horizontalmente en pantallas más pequeñas */
+  /* Ajustar el tamaño de los iconos sociales */
+  .rounded-social-buttons {
+    justify-content: space-between; /* Distribuir los iconos uniformemente */
+  }
+
+  /* Ajustar el tamaño del mapa */
+  #map {
+    width: 100%;
+    height: 300px; /* Ajusta la altura según tus necesidades */
+  }
+
+  /* Ocultar elementos no esenciales del mapa */
+  .leaflet-control-zoom {
+    display: none;
+  }
+
+  /* Ajustar el diseño del pie de página */
+  .footer {
+    text-align: center;
+    padding: 20px;
+  }
+
+  /* Agregar controles de zoom */
+  .leaflet-container .leaflet-control-zoom {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+  }
+
+  /* Cambiar la posición del botón de modo oscuro */
+  .dark-mode {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
   }
 
   .element {
-    display: none; /* Ocultar los iconos animados en pantallas más pequeñas */
-  }
-
-  .forecast-info {
-    width: 90%; /* Cambiar el ancho del contenedor de información del clima para que se ajuste a la pantalla */
-    margin: 10px auto; /* Centrar el contenedor de información del clima */
-  }
-  
-  .menu li a {
-    padding: 15px; /* Reducir el relleno de los elementos del menú para conservar el espacio */
-    font-size: 16px; /* Reducir el tamaño de fuente del menú para mejorar la legibilidad en pantallas más pequeñas */
+    display: none;
   }
 }
 
-/* Imágenes y medios adaptativos */
-@media (max-width: 768px) {
-  .weather-part img {
-    max-width: 100%; /* Ajustar el ancho máximo de las imágenes al tamaño del contenedor para evitar desbordamientos */
-    height: auto; /* Mantener la proporción de la imagen al ajustar el ancho */
-  }
-
-}
-
-/* Ocultar elementos no esenciales */
-@media (max-width: 768px) {
-  .column {
-    display: none; /* Ocultar detalles adicionales en la sección de previsión en pantallas más pequeñas */
-  }
-}
-/* Media Queries para hacer la página responsive */
-
-/* Ajustar el tamaño de fuente para diferentes tamaños de pantalla */
-@media (max-width: 768px) {
-  html {
-    font-size: 14px; /* Reducir el tamaño de fuente para pantallas medianas */
-  }
-}
-
-@media (max-width: 576px) {
-  html {
-    font-size: 12px; /* Reducir aún más el tamaño de fuente para pantallas pequeñas */
-  }
-}
-
-/* Ajustes de diseño para pantallas más pequeñas */
-@media (max-width: 768px) {
-  .wrapper {
-    max-width: 90%; /* Utilizar un ancho máximo relativo para que el wrapper se ajuste al contenido */
-    margin: 0 auto; /* Centrar el contenedor en pantallas más pequeñas */
-    padding: 10px; /* Agregar un poco de espacio de relleno alrededor del contenedor */
-    box-sizing: border-box; /* Incluir padding y border en el cálculo del ancho */
-    overflow-x: auto; /* Agregar scroll horizontal si es necesario */
+@media (min-width: 801px) {
+  /* Ocultar los iconos de navegación en pantalla grande en la página mapas.html */
+  .mapas-page .navigation-icons {
+    display: none;
   }
 }

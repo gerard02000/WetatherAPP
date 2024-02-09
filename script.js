@@ -217,6 +217,22 @@ showNextElement();
 
 // Configura un temporizador para mostrar el próximo elemento cada 3000 milisegundos (3 segundos)
 setInterval(showNextElement, 3000);
+// JavaScript para habilitar/deshabilitar elementos de navegación
+const navigationIcons = document.querySelector('.navigation-icons');
+const navigation = document.querySelector('.navigation');
 
+// Función para habilitar/deshabilitar elementos de navegación según el tamaño de la pantalla
+function toggleNavigation() {
+    if (window.innerWidth <= 600) {
+        navigationIcons.style.display = 'flex'; // Mostrar iconos de navegación
+        navigation.style.display = 'none'; // Ocultar navegación tradicional
+    } else {
+        navigationIcons.style.display = 'none'; // Ocultar iconos de navegación
+        navigation.style.display = 'block'; // Mostrar navegación tradicional
+    }
+}
 
+// Llamar a la función al cargar la página y al cambiar el tamaño de la ventana
+toggleNavigation();
+window.addEventListener('resize', toggleNavigation);
 
