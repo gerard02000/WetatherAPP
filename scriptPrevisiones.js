@@ -222,7 +222,15 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener('resize', toggleNavigation);
 
 
-
+    // Event listener para el input de la ciudad
+    const cityInput = document.getElementById('city-input');
+    cityInput.addEventListener('keydown', function (event) {
+        // Verificar si la tecla presionada es 'Enter'
+        if (event.key === 'Enter') {
+            // Llamar a la función collectData()
+            collectData();
+        }
+    });
 
 
 });
